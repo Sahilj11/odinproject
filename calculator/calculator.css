@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+}
+
+.cal-box {
+    display: grid;
+    max-width: 25rem;
+    max-height: 25rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2fr 2fr 2fr 2fr;
+}
+.cal-box button{
+    display: grid;
+    background: #219ebc;
+    color: white;
+    border: 1px solid black;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cal-box button:hover{
+    background: #219dbc9d;
+}
