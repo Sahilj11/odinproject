@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="test.js" defer></script>
+</head>
+<body>
+    <h1>Your Personal Book keeper</h1>
+    <form action="" onsubmit="return validateForm()" name="myForm">
+        <input class="user-input" type="text" name="book" id="book" placeholder="Name of Book" autocomplete="off" required />
+        <input class="user-input" type="text" name="author" id="author" placeholder="Book's Author" autocomplete="off" required />
+        <input class="user-input" type="text" name="page" id="page" placeholder="Pages" autocomplete="off" required />
+        <select name="read" id="read" required>
+            <option value="" disabled selected>Read Or Not</option>
+            <option value="yes">I have read it</option>
+            <option value="no">Not read yet</option>
+        </select>
+        <input type="submit" value="Submit" id="submit" />
+    </form>
+    <div><p id="Alert"></p></div>
+    <div id="list">
+        <table><tr class="headings">
+            <th>Sr.No</th>
+            <th>Name of Book</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Read or Not</th>
+            <th>Change read status</th>
+            <th>Delete data</th>
+        </tr></table>
+    </div>
+</body>
+</html>
