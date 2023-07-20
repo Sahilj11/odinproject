@@ -8,22 +8,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <table class="gameBoard">
-        <tr class="userContainer" id="row0">
-            <td class="userInput" data-place="0;0"></td>
-            <td class="userInput" data-place="0;1"></td>
-            <td class="userInput" data-place="0;2"></td>
-        </tr>
-        <tr class="userContainer" id="row1">
-            <td class="userInput" data-place="1;0"></td>
-            <td class="userInput" data-place="1;1"></td>
-            <td class="userInput" data-place="1;2"></td>
-        </tr>
-        <tr class="userContainer" id="row2">
-            <td class="userInput" data-place="2;0"></td>
-            <td class="userInput" data-place="2;1"></td>
-            <td class="userInput" data-place="2;2"></td>
-        </tr>
-    </table>
+    <div class="gameBoardContainer">
+        <div class="gameBoard">
+                <p class="userInput" data-place="0;0"></p>
+                <p class="userInput" data-place="0;1"></p>
+                <p class="userInput" data-place="0;2"></p>
+                <p class="userInput" data-place="1;0"></p>
+                <p class="userInput" data-place="1;1"></p>
+                <p class="userInput" data-place="1;2"></p>
+                <p class="userInput" data-place="2;0"></p>
+                <p class="userInput" data-place="2;1"></p>
+                <p class="userInput" data-place="2;2"></p>
+        </div>
+    </div>
+    <div class="playerDetails">
+        <p>Player 1 : X</p>
+        <p>Player 2 : O</p>
+    </div>
+    <div class="resetButton"><button class="button-5" role="button">Reset</button></div>
+    <div id="winnerOrLoser"><p class="W-Or-L"></p></div>
 </body>
 </html>

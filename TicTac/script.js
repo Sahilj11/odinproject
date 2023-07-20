@@ -1,6 +1,6 @@
 
 import {gameBoardHTML} from "./domloader.js";
-
+let noPlaceLeft = false;
 let gameOver = false;
 const playerObject = playerObj();
 const gameBoardObj = gameBoard();
@@ -21,19 +21,7 @@ function gameBoard(){
     // print gameBoard on console
     function printBoard(){
         let boardValueNew = board.map(row=> row.map(column=> column.getValue()));
-        console.log(boardValueNew);
-        const allInputField = document.querySelectorAll('td');
-        const  allInputFieldArr = Array.from(allInputField);
-        let arrCounter = 0;
-        for(let i = 0 ; i < 3 ; i++){
-            console.log(arrCounter, "outside");
-            for(let j = 0 ; j < 3 ; j++){
-                if(boardValueNew[i][j] !== 0){
-                    allInputField[arrCounter].textContent = boardValueNew[i][j];
-                }
-                arrCounter++; 
-            }
-        }
+        printGameBoardDOM(boardValueNew);
     }
 
     function gameRule(){
@@ -50,7 +38,6 @@ function gameBoard(){
             })
             if(resultO[0] === true || resultX[0] === true){
                 let activePlayer = playerObject.getActivePlayer().name;
-                console.log(`${activePlayer} won the game`);
                 return gameOver = true;
             }
         }
@@ -67,7 +54,6 @@ function gameBoard(){
     
                 if(tempO === true || tempX === true){
                     let activePlayer = playerObject.getActivePlayer().name;
-                    console.log(`${activePlayer} won the game`);
                     return gameOver = true;
                 }
             }
@@ -101,10 +87,18 @@ function gameBoard(){
                     return gameOver = true;
                 }
         }
+        function checkAllFieldFilled(){
+            const checkAll = board.map(row=> row.every(column=> column.getValue() !== 0));
+            const resultFinal = checkAll.every(element => element === true);
+            if(resultFinal === true){
+                noPlaceLeft = true;
+            }
+        }
         return{
             diagonalCheck,
             horizontalCheck,
-            verticalCheck
+            verticalCheck,
+            checkAllFieldFilled
         }
     }
     const gameRuleObj = gameRule();
@@ -112,18 +106,25 @@ function gameBoard(){
     function getPlayerEntry(row, column, player){
         // to stop player from add value to already populated cell
         if(board[row][column].getValue()!== 0){
-            console.log("Invalid Move, enter in empty cell")
             return false;
         }else{
             board[row][column].addToken(player);
             gameRuleObj.horizontalCheck();
             gameRuleObj.verticalCheck();
             gameRuleObj.diagonalCheck();
+            gameRuleObj.checkAllFieldFilled();
             gameBoardObj.printBoard();
             if(gameOver === true){
+                document.querySelector(".W-Or-L").textContent = `${playerObject.getActivePlayer().name} Won!`;
+                document.querySelector(".W-Or-L").style.color = "green";
                 playerObject.switchPlayer();
                 gameStop();
-                resetBoard();
+            }else if (noPlaceLeft === true){
+                document.querySelector(".W-Or-L").style.color = "red";
+                document.querySelector(".W-Or-L").textContent = "It's a Tie"
+                gameStop();
+            }else{
+                playerObject.switchPlayer();
             }
             return true;
         }
@@ -135,6 +136,9 @@ function gameBoard(){
             }
         }
             gameOver = false;
+            noPlaceLeft = false;
+           /*  let boardValueReset = board.map(row=> row.map(column=> column.getValue()));
+            printGameBoardDOM(boardValueReset); */
         }
     return {
         printBoard,
@@ -177,12 +181,10 @@ function playerObj(){
 
     // swtich from current active player 
     function switchPlayer(){
-        if(gameOver === true){
+        if(gameOver === true || noPlaceLeft === true){
             activePlayer = playerList[0];
-            console.log(`Active Player: ${activePlayer.name}`);
         }else{
             activePlayer = activePlayer === playerList[0] ? playerList[1] : playerList[0]; 
-            console.log(`Active Player: ${activePlayer.name}`); 
         }
     }
 
@@ -190,7 +192,6 @@ function playerObj(){
     function getActivePlayer(){
         return activePlayer;
     }
-    console.log(`Active Player: ${activePlayer.name}`);
     return {
         switchPlayer,
         getActivePlayer
@@ -205,7 +206,7 @@ gameBoardHTML.addEventListener('click',input);
 
 function gameStop() {
     // empty board array
-    console.log("Game resetting....");
+    
     gameBoardObj.resetBoard();
     // stop listening to event
     gameBoardHTML.removeEventListener("click", input);
@@ -218,11 +219,30 @@ function input(e){
     let column = userInput[1];
     let player = playerObject.getActivePlayer().symbol;
     gameBoardObj.getPlayerEntry(row,column,player);
-    playerObject.switchPlayer();
 }
-
 
 function userClickRecorder(s){
    let userInputArr =  s.split(";");
    return userInputArr;
+}
+function printGameBoardDOM(boardValueNew){
+    const allInputField = document.querySelectorAll('.userInput');
+        const  allInputFieldArr = Array.from(allInputField);
+        let arrCounter = 0;
+        for(let i = 0 ; i < 3 ; i++){
+            for(let j = 0 ; j < 3 ; j++){
+                if(boardValueNew[i][j] !== 0){
+                    allInputField[arrCounter].textContent = boardValueNew[i][j];
+                }else{
+                    allInputField[arrCounter].textContent = "";   
+                }
+                arrCounter++; 
+            }
+        }
+}
+document.querySelector('.button-5').addEventListener('click', resetGameBoardDom);
+function resetGameBoardDom (){
+    gameBoardObj.printBoard();
+    document.querySelector(".W-Or-L").textContent = "";
+    gameBoardHTML.addEventListener('click', input);
 }

@@ -3,4 +3,4 @@ export default function formDOMLoader(){
     const column = document.querySelector('#column').value;
     return[rows,column];
 }
-export const gameBoardHTML = document.querySelector('table');
+export const gameBoardHTML = document.querySelector('.gameBoard');
