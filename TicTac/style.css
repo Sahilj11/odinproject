@@ -1,0 +1,24 @@
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+}
+body{
+    display: grid;
+}
+
+.gameBoard{
+    width: 400px;
+    height: 400px;
+    justify-self: center;
+    table-layout:fixed;
+}
+
+.userContainer{
+    border: 1px solid red;
+
+}
+.userInput{
+    border: 1px solid red;
+    font-size: 3rem;
+}
