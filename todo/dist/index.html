@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./bundle.js"></script>
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+<body>
+    <form id="todoform">
+        <input type="text" id="title" placeholder="Title">
+        <input id="description" type="text" placeholder="Description">
+        <input id="dueDate" type="date">
+            <select name="" id="priority">
+                <option value="Select priority" disabled selected>Select Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        <input id="notes" type="text" placeholder="Add notes">
+        <input type="submit" value="submit">
+    </form>
+    <div><h2>Todo List</h2></div>
+        <select name="sorting" id="sorting">
+            <option value="default" selected disabled>Sort by</option>
+            <option value="byPriority">Priority</option>
+            <option value="byDueDate">Due Date</option>
+        </select>
+    <div id="todoList">
+        <table id="todoTable">
+            <thead>
+                <tr id="header">
+                        <th id="Title" class="headerTable">Title</th>
+                        <th id="Description" class="headerTable">Description</th>
+                        <th id="Due-Date" class="headerTable">Due Date</th>
+                        <th id="Priority" class="headerTable">Priority</th>
+                        <th id="Notes" class="headerTable">Notes</th>
+                </tr>
+            </thead>
+                <tbody>
+                </tbody>
+        </table>
+</div>
+</body>
+</html>
